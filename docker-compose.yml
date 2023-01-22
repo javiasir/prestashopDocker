@@ -11,7 +11,7 @@ services:
       - DB_NAME=prestashop_db
       - DB_USER=prestashop_user
       - DB_PASSWD=prestashop
-      - ADMIN_MAIL=javieritovivas@gmail.com
+      - ADMIN_MAIL=example@example.com
       - ADMIN_PASSWD=random135
     depends_on:
       - db
