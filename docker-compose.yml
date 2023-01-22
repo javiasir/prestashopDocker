@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  prestashop:
+    image: prestashop/prestashop:latest
+    environment:
+      - PS_INSTALL_AUTO=1
+      - PS_DOMAIN=localhost
+      - PS_FOLDER_ADMIN=administration
+      - DB_SERVER=db
+      - DB_NAME=prestashop_db
+      - DB_USER=prestashop_user
+      - DB_PASSWD=prestashop
+      - ADMIN_MAIL=javieritovivas@gmail.com
+      - ADMIN_PASSWD=random135
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./prestashop:/var/www/html
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_DATABASE=prestashop_db
+      - MYSQL_USER=prestashop_user
+      - MYSQL_PASSWORD=prestashop
+      - MYSQL_ROOT_PASSWORD=prestashop
+      #- MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      #- MYSQL_AUTH_PLUGIN=auth_socket
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
